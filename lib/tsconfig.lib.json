@@ -26,6 +26,7 @@
     "enableResourceInlining": true
   },
   "exclude": [
+    "src/stub.service.ts",
     "src/test.ts",
     "**/*.spec.ts"
   ]
