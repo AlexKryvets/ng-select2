@@ -24,7 +24,7 @@ export const SELECT_2_COMPONENT_ACCESSOR: any = {
 @Component({
     selector: 'select2',
     template: `
-        <select #select class="form-control" style="width: 100%">
+        <select #select class="form-control">
             <ng-content></ng-content>
         </select>
     `,
