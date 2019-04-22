@@ -23,11 +23,7 @@ export const SELECT_2_COMPONENT_ACCESSOR: any = {
 
 @Component({
     selector: 'select2',
-    template: `
-        <select #select class="form-control">
-            <ng-content></ng-content>
-        </select>
-    `,
+    template: `<select #select><ng-content></ng-content></select>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     // encapsulation: ViewEncapsulation.None,
     providers: [SELECT_2_COMPONENT_ACCESSOR]
@@ -109,15 +105,17 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
 
 
     private setElementValue(newValue: string | string[]) {
+      if (this.$select) {
         if (Array.isArray(newValue)) {
-            this.$select.find('option').each(() => {
-                // this.renderer.setElementProperty(option, 'selected', (newValue.indexOf(option.value) > -1));
-            });
+          this.$select.find('option').each(() => {
+            // this.renderer.setElementProperty(option, 'selected', (newValue.indexOf(option.value) > -1));
+          });
         } else {
-            this.$select.val(newValue);
-            // this.renderer.setElementProperty(this.selector.nativeElement, 'value', newValue);
+          this.$select.val(newValue);
+          // this.renderer.setElementProperty(this.selector.nativeElement, 'value', newValue);
         }
         this.$select.trigger('change.select2');
+      }
     }
 
     writeValue(value: any) {
