@@ -6,4 +6,5 @@ export interface Select2Options {
     dropDownParent?: any;
     createObservable?: CreateObservableFunction;
     dataAdapter?: any;
+    multiple?: boolean;
 }
