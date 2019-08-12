@@ -8,5 +8,5 @@ export interface Select2Options {
     createObservable?: CreateObservableFunction;
     dataAdapter?: any;
     multiple?: boolean;
-    select2Component: Select2Component;
+    select2Component?: Select2Component;
 }
