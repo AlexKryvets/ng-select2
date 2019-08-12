@@ -71,6 +71,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     ngOnInit() {
         this.$select = jQuery(this.select.nativeElement);
         const dropDownParent = this.$select.closest('.modal');
+        this.options.select2Component = this;
         if (dropDownParent.length) {
             this.options.dropDownParent = dropDownParent;
         }
@@ -80,7 +81,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
             this.wrapTemplateResultOption();
         }
         this.$select.on('change', (event, data) => {
-            const value = (data && data.data) || this.$select.val();
+            const value = this.$select.val();
             this.onChange(value);
         });
         this.$select.select2(this.options);

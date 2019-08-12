@@ -1,4 +1,5 @@
 import {CreateObservableFunction} from './observable-adapter';
+import {Select2Component} from './select2.component';
 
 export interface Select2Options {
     language?: string;
@@ -7,4 +8,5 @@ export interface Select2Options {
     createObservable?: CreateObservableFunction;
     dataAdapter?: any;
     multiple?: boolean;
+    select2Component: Select2Component;
 }

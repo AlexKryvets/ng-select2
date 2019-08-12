@@ -60,6 +60,10 @@ export class AppComponent {
         return of(this.data).pipe(delay(1000));
     }
 
+    toJSON(data) {
+        return JSON.stringify(data);
+    }
+
     private compareWith(value1, value2) {
         return value1 === value2;
     }
