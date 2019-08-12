@@ -28,31 +28,31 @@ export class AppComponent {
 
     select2SingleAsync = {
         options: {...this.defaultSelect2Options},
-        model: 2,
+        model: 1,
         compareWith: this.compareWith
     };
 
     select2SingleObservable = {
         options: {...this.defaultSelect2Options, ...{createObservable: this.createData$.bind(this)}},
-        model: 2,
+        model: 3,
         compareWith: this.compareWith
     };
 
     select2MultipleSync = {
         options: {...this.defaultSelect2Options, ...{multiple: true}},
-        model: [2],
+        model: [1, 2],
         compareWith: this.compareWith
     };
 
     select2MultipleAsync = {
         options: {...this.defaultSelect2Options, ...{multiple: true}},
-        model: [2],
+        model: [2, 3],
         compareWith: this.compareWith
     };
 
     select2MultipleObservable = {
         options: {...this.defaultSelect2Options, ...{multiple: true}, ...{createObservable: this.createData$.bind(this)}},
-        model: [2],
+        model: [1, 3],
         compareWith: this.compareWith
     };
 
