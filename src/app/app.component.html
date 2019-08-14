@@ -6,34 +6,61 @@
   <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
 <h2>Here are some exaples: </h2>
-<select2 [options]="select2SingleSync.options" [compareWith]="select2SingleSync.compareWith" [(ngModel)]="select2SingleSync.model">
+<select2 [options]="select2SingleSync.options" [compareWith]="compareWith" [(ngModel)]="select2SingleSync.model">
     <option #option *ngFor="let item of data" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleSync.model)}}
+<select2 [options]="select2SingleSync.options" [compareWith]="ngCompareWith" [(ngModel)]="select2SingleSync.ngModel">
+    <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(select2SingleSync.ngModel)}}
+<br/>
 
-<select2 [options]="select2SingleAsync.options" [compareWith]="select2SingleAsync.compareWith"  [(ngModel)]="select2SingleAsync.model">
+<select2 [options]="select2SingleAsync.options" [compareWith]="compareWith"  [(ngModel)]="select2SingleAsync.model">
     <option #option *ngFor="let item of data$ | async" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleAsync.model)}}
+<select2 [options]="select2SingleAsync.options" [compareWith]="ngCompareWith"  [(ngModel)]="select2SingleAsync.ngModel">
+    <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(select2SingleAsync.ngModel)}}
+<br/>
 
-<select2 [options]="select2SingleObservable.options" [compareWith]="select2SingleObservable.compareWith" [(ngModel)]="select2SingleObservable.model">
+<select2 [options]="select2SingleObservable.options" [compareWith]="compareWith" [(ngModel)]="select2SingleObservable.model">
     <option #option *ngFor="let item of [data[2]]" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleObservable.model)}}
-
+<select2 [options]="select2SingleObservable.options" [compareWith]="ngCompareWith" [(ngModel)]="select2SingleObservable.ngModel">
+    <option #option *ngFor="let item of [data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(select2SingleObservable.ngModel)}}
 <br/>
 
-<select2 [options]="select2MultipleSync.options" [compareWith]="select2MultipleSync.compareWith" [(ngModel)]="select2MultipleSync.model">
+<select2 [options]="select2MultipleSync.options" [compareWith]="compareWith" [(ngModel)]="select2MultipleSync.model">
     <option #option *ngFor="let item of data" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleSync.model)}}
+<select2 [options]="select2MultipleSync.options" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleSync.ngModel">
+    <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(select2MultipleSync.ngModel)}}
+<br/>
 
-<select2 [options]="select2MultipleAsync.options" [compareWith]="select2MultipleAsync.compareWith"  [(ngModel)]="select2MultipleAsync.model">
+<select2 [options]="select2MultipleAsync.options" [compareWith]="compareWith"  [(ngModel)]="select2MultipleAsync.model">
     <option #option *ngFor="let item of data$ | async" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleAsync.model)}}
+<select2 [options]="select2MultipleAsync.options" [compareWith]="ngCompareWith"  [(ngModel)]="select2MultipleAsync.ngModel">
+    <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(select2MultipleAsync.ngModel)}}
+<br/>
 
-<select2 [options]="select2MultipleObservable.options" [compareWith]="select2MultipleObservable.compareWith" [(ngModel)]="select2MultipleObservable.model">
+<select2 [options]="select2MultipleObservable.options" [compareWith]="compareWith" [(ngModel)]="select2MultipleObservable.model">
     <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleObservable.model)}}
+<select2 [options]="select2MultipleObservable.options" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleObservable.ngModel">
+    <option #option *ngFor="let item of [data[0], data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(select2MultipleObservable.ngModel)}}
