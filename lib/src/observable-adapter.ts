@@ -36,7 +36,7 @@ export class ObservableAdapter extends ArrayAdapter {
         if ($option.length === 0) {
             const id = this.select2Component.registerOption({value: data} as Select2OptionValueDirective);
             $option = this.option(data);
-            $option.value = buildValueString(id, data.id);
+            $option[0].value = buildValueString(id, data.id);
             this.addOptions($option);
         }
 
