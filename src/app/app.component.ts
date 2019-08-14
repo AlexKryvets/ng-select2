@@ -23,37 +23,37 @@ export class AppComponent {
     select2SingleSync = {
         options: {...this.defaultSelect2Options},
         model: 2,
-        ngModel: this.data[1]
+        ngModel: {...this.data[1]}
     };
 
     select2SingleAsync = {
         options: {...this.defaultSelect2Options},
         model: 1,
-        ngModel: this.data[0]
+        ngModel: {...this.data[0]}
     };
 
     select2SingleObservable = {
         options: {...this.defaultSelect2Options, ...{createObservable: this.createData$.bind(this)}},
         model: 3,
-        ngModel: this.data[2]
+        ngModel: {...this.data[2]}
     };
 
     select2MultipleSync = {
         options: {...this.defaultSelect2Options, ...{multiple: true}},
         model: [1, 2],
-        ngModel: [this.data[0], this.data[1]]
+        ngModel: [{...this.data[0]}, {...this.data[1]}]
     };
 
     select2MultipleAsync = {
         options: {...this.defaultSelect2Options, ...{multiple: true}},
         model: [2, 3],
-        ngModel: [this.data[1], this.data[2]]
+        ngModel: [{...this.data[1]}, {...this.data[2]}]
     };
 
     select2MultipleObservable = {
         options: {...this.defaultSelect2Options, ...{multiple: true}, ...{createObservable: this.createData$.bind(this)}},
         model: [1, 3],
-        ngModel: [this.data[0], this.data[2]]
+        ngModel: [{...this.data[0]}, {...this.data[2]}]
     };
 
     createData$(): Observable<any> {
