@@ -2,6 +2,7 @@ import {Observable, Subscription} from 'rxjs';
 import {ArrayAdapter} from '@teamsoft/select2-adapters/base-adapters';
 import {Select2Component} from './select2.component';
 import {buildValueString} from './utils';
+import {Select2OptionValueDirective} from './select2-option-value.directive';
 
 export type CreateObservableFunction = (params: { term: string }) => Observable<any>;
 
@@ -33,7 +34,9 @@ export class ObservableAdapter extends ArrayAdapter {
         });
 
         if ($option.length === 0) {
+            const id = this.select2Component.registerOption({value: data} as Select2OptionValueDirective);
             $option = this.option(data);
+            $option.value = buildValueString(id, data.id);
             this.addOptions($option);
         }
 
