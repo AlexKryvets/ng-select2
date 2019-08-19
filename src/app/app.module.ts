@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {Select2Module} from '../../lib/src/module';
+import {Select2Module} from '../../projects/ng-select2/src/module';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({

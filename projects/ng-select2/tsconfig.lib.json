@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/lib",
     "target": "es2015",
@@ -26,8 +26,8 @@
     "enableResourceInlining": true
   },
   "exclude": [
-    "src/stub.service.ts",
-    "src/test.ts",
+    "ng-select2/src/stub.service.ts",
+    "ng-select2/src/test.ts",
     "**/*.spec.ts"
   ]
 }
