@@ -147,7 +147,9 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
             const valueString = buildValueString(id, value);
             this.setElementValue(valueString);
         }
-        this.$select.trigger('change.select2');
+        if (this.$select) {
+            this.$select.trigger('change.select2');
+        }
     }
 
     registerOnChange(fn: any) {
