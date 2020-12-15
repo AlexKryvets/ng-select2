@@ -1,13 +1,13 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component, ContentChildren,
-    ElementRef,
-    forwardRef, Input,
-    OnInit, QueryList, Renderer2,
-    ViewChild,
-    ɵlooseIdentical as looseIdentical
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component, ContentChildren,
+  ElementRef,
+  forwardRef, Input, OnChanges,
+  OnInit, QueryList, Renderer2, SimpleChanges,
+  ViewChild,
+  ɵlooseIdentical as looseIdentical
 } from '@angular/core';
 import {Select2Options} from './interfaces';
 import {ObservableAdapter} from './observable-adapter';
@@ -31,11 +31,14 @@ export const SELECT_2_COMPONENT_ACCESSOR: any = {
     // encapsulation: ViewEncapsulation.None,
     providers: [SELECT_2_COMPONENT_ACCESSOR]
 })
-export class Select2Component implements ControlValueAccessor, OnInit, AfterContentInit {
+export class Select2Component implements ControlValueAccessor, OnInit, AfterContentInit, OnChanges {
 
     @ViewChild('select') select: ElementRef;
 
     @ContentChildren('option') optionList: QueryList<any>;
+
+    @Input()
+    placeholder = '';
 
     @Input()
     options: Select2Options = {};
@@ -62,7 +65,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     private _compareWith: (o1: any, o2: any) => boolean = looseIdentical;
 
     onChange = (_: any) => {
-    };
+    }
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
         this.$element = jQuery(this.elementRef.nativeElement);
@@ -84,10 +87,20 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
             const value = this.$select.val();
             this.onChange(value);
         });
+        if (this.placeholder) {
+            this.options.placeholder = this.placeholder;
+        }
         this.$select.select2(this.options);
     }
 
-    ngAfterContentInit() {
+  ngOnChanges(changes: SimpleChanges) {
+      if (this.$select && changes.placeholder) {
+          this.options.placeholder = changes.placeholder.currentValue;
+          this.$select.select2({placeholder: this.options.placeholder});
+      }
+  }
+
+  ngAfterContentInit() {
         this.optionList.changes.subscribe(() => {
             this.$select.select2('close');
             this.$select.select2(this.options);
