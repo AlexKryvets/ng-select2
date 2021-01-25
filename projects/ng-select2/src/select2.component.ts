@@ -43,6 +43,8 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     @Input()
     options: Select2Options = {};
 
+    private select2Options: Select2Options = {};
+
     @Input()
     set compareWith(fn: (o1: any, o2: any) => boolean) {
         if (typeof fn !== 'function') {
@@ -73,13 +75,15 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
 
     ngOnInit() {
         this.$select = jQuery(this.select.nativeElement);
+        this.select2Options = Object.assign({}, this.options);
+
         const dropDownParent = this.$select.closest('.modal');
-        this.options.select2Component = this;
+        this.select2Options.select2Component = this;
         if (dropDownParent.length) {
-            this.options.dropDownParent = dropDownParent;
+            this.select2Options.dropDownParent = dropDownParent;
         }
-        if (this.options.createObservable) {
-            this.options.dataAdapter = ObservableAdapter;
+        if (this.select2Options.createObservable) {
+            this.select2Options.dataAdapter = ObservableAdapter;
         } else {
             this.wrapTemplateResultOption();
         }
@@ -88,30 +92,30 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
             this.onChange(value);
         });
         if (this.placeholder) {
-            this.options.placeholder = this.placeholder;
+            this.select2Options.placeholder = this.placeholder;
         }
-        this.$select.select2(this.options);
+        this.$select.select2(this.select2Options);
     }
 
   ngOnChanges(changes: SimpleChanges) {
       if (this.$select && changes.placeholder) {
-          this.options.placeholder = changes.placeholder.currentValue;
-          this.$select.select2({placeholder: this.options.placeholder});
+          this.select2Options.placeholder = changes.placeholder.currentValue;
+          this.$select.select2(this.select2Options);
       }
   }
 
   ngAfterContentInit() {
         this.optionList.changes.subscribe(() => {
             this.$select.select2('close');
-            this.$select.select2(this.options);
+            this.$select.select2(this.select2Options);
             this.writeValue(this.value);
         });
     }
 
     private wrapTemplateResultOption() {
-        const templateResult = this.options.templateResult;
+        const templateResult = this.select2Options.templateResult;
         if (templateResult) {
-            this.options.templateResult = (result, container) => {
+            this.select2Options.templateResult = (result, container) => {
                 let data;
                 if (result.id) {
                     data = this.getOptionValue(result.id);
