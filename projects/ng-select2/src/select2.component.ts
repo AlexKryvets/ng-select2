@@ -1,13 +1,13 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component, ContentChildren,
-    ElementRef,
-    forwardRef, Input,
-    OnInit, QueryList, Renderer2,
-    ViewChild,
-    ɵlooseIdentical as looseIdentical
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component, ContentChildren,
+  ElementRef,
+  forwardRef, Input, OnChanges,
+  OnInit, QueryList, Renderer2, SimpleChanges,
+  ViewChild,
+  ɵlooseIdentical as looseIdentical
 } from '@angular/core';
 import {Select2Options} from './interfaces';
 import {ObservableAdapter} from './observable-adapter';
@@ -31,14 +31,19 @@ export const SELECT_2_COMPONENT_ACCESSOR: any = {
     // encapsulation: ViewEncapsulation.None,
     providers: [SELECT_2_COMPONENT_ACCESSOR]
 })
-export class Select2Component implements ControlValueAccessor, OnInit, AfterContentInit {
+export class Select2Component implements ControlValueAccessor, OnInit, AfterContentInit, OnChanges {
 
     @ViewChild('select') select: ElementRef;
 
     @ContentChildren('option') optionList: QueryList<any>;
 
     @Input()
+    placeholder = '';
+
+    @Input()
     options: Select2Options = {};
+
+    private select2Options: Select2Options = {};
 
     @Input()
     set compareWith(fn: (o1: any, o2: any) => boolean) {
@@ -62,7 +67,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     private _compareWith: (o1: any, o2: any) => boolean = looseIdentical;
 
     onChange = (_: any) => {
-    };
+    }
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {
         this.$element = jQuery(this.elementRef.nativeElement);
@@ -70,13 +75,15 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
 
     ngOnInit() {
         this.$select = jQuery(this.select.nativeElement);
+        this.select2Options = Object.assign({}, this.options);
+
         const dropDownParent = this.$select.closest('.modal');
-        this.options.select2Component = this;
+        this.select2Options.select2Component = this;
         if (dropDownParent.length) {
-            this.options.dropDownParent = dropDownParent;
+            this.select2Options.dropDownParent = dropDownParent;
         }
-        if (this.options.createObservable) {
-            this.options.dataAdapter = ObservableAdapter;
+        if (this.select2Options.createObservable) {
+            this.select2Options.dataAdapter = ObservableAdapter;
         } else {
             this.wrapTemplateResultOption();
         }
@@ -84,20 +91,31 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
             const value = this.$select.val();
             this.onChange(value);
         });
-        this.$select.select2(this.options);
+        if (this.placeholder) {
+            this.select2Options.placeholder = this.placeholder;
+        }
+        this.$select.select2(this.select2Options);
     }
 
-    ngAfterContentInit() {
+  ngOnChanges(changes: SimpleChanges) {
+      if (this.$select && changes.placeholder) {
+          this.select2Options.placeholder = changes.placeholder.currentValue;
+          this.$select.select2(this.select2Options);
+      }
+  }
+
+  ngAfterContentInit() {
         this.optionList.changes.subscribe(() => {
-            this.$select.select2(this.options);
+            this.$select.select2('close');
+            this.$select.select2(this.select2Options);
             this.writeValue(this.value);
         });
     }
 
     private wrapTemplateResultOption() {
-        const templateResult = this.options.templateResult;
+        const templateResult = this.select2Options.templateResult;
         if (templateResult) {
-            this.options.templateResult = (result, container) => {
+            this.select2Options.templateResult = (result, container) => {
                 let data;
                 if (result.id) {
                     data = this.getOptionValue(result.id);
@@ -147,7 +165,9 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
             const valueString = buildValueString(id, value);
             this.setElementValue(valueString);
         }
-        this.$select.trigger('change.select2');
+        if (this.$select) {
+            this.$select.trigger('change.select2');
+        }
     }
 
     registerOnChange(fn: any) {

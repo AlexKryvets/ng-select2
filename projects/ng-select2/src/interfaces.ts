@@ -9,4 +9,5 @@ export interface Select2Options {
     dataAdapter?: any;
     multiple?: boolean;
     select2Component?: Select2Component;
+    placeholder?: string;
 }
