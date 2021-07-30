@@ -64,3 +64,16 @@
     <option #option *ngFor="let item of [data[0], data[2]]" [ngOptionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleObservable.ngModel)}}
+
+<form (ngSubmit)="submit()" [formGroup]="group" novalidate>
+  <select2 [compareWith]="compareWith" [options]="select2MultipleSync.options" formControlName="control1" id="13">
+    <option #option *ngFor="let item of data" [ngOptionValue]="item.id">{{item.text}}
+    </option>
+  </select2>
+  <select2 [compareWith]="ngCompareWith" [options]="select2MultipleSync.options" formControlName="control2" id="14">
+    <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}
+    </option>
+  </select2>
+  <br>
+  <button type="submit">Submit</button>
+</form>
