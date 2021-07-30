@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -9,6 +10,27 @@ import {delay} from 'rxjs/operators';
 })
 export class AppComponent {
     title = 'ng-select2-app';
+  
+    private group: FormGroup;
+
+    constructor(private fb: FormBuilder) {
+    }
+
+    ngOnInit() {
+      this.group = this.fb.group({
+        control1: [null],
+        control2: [null]
+      });
+
+      this.group.patchValue({
+        control1: this.select2MultipleSync.model,
+        control2: this.select2MultipleSync.ngModel
+      });
+    }
+
+    submit() {
+      console.log(this.group.value);
+    }
 
     data = [
         {id: 1, text: 'First', data: {id: 1}},
