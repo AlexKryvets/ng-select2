@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -9,6 +10,9 @@ import {delay} from 'rxjs/operators';
 })
 export class AppComponent {
     title = 'ng-select2-app';
+
+    regions = new FormControl([1,3]);
+    regions2 = new FormControl([{id: 1, name: 'First'},{id: 3, name: 'Third'}]);
 
     data = [
         {id: 1, text: 'First', data: {id: 1}},
