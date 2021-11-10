@@ -11,8 +11,8 @@ import {FormControl} from '@angular/forms';
 export class AppComponent {
     title = 'ng-select2-app';
 
-    regions = new FormControl([1,3]);
-    regions2 = new FormControl([{id: 1, name: 'First'},{id: 3, name: 'Third'}]);
+    regions = new FormControl([1, 3]);
+    regions2 = new FormControl([{id: 1, name: 'First'}, {id: 3, name: 'Third'}]);
 
     data = [
         {id: 1, text: 'First', data: {id: 1}},

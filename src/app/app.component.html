@@ -64,14 +64,13 @@
     <option #option *ngFor="let item of [data[0], data[2]]" [ngOptionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleObservable.ngModel)}}
-
-<br>
-<br>
+<br/>
 
 <select2 id="13" [options]="select2MultipleSync.options" [compareWith]="compareWith" [formControl]="regions">
   <option #option *ngFor="let item of data" [optionValue]="item.id">{{item.text}}</option>
 </select2>
-
+{{toJSON(regions.value)}}
 <select2 id="14" [options]="select2MultipleSync.options" [compareWith]="ngCompareWith" [formControl]="regions2">
   <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
 </select2>
+{{toJSON(regions2.value)}}
