@@ -10,4 +10,5 @@ export interface Select2Options {
     multiple?: boolean;
     select2Component?: Select2Component;
     placeholder?: string;
+    width?: number;
 }
