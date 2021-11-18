@@ -5,7 +5,7 @@
   </h1>
   <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<h2>Here are some exaples: </h2>
+<h2>Here are some examples: </h2>
 <select2 id="1" [options]="select2SingleSync.options" [compareWith]="compareWith" [(ngModel)]="select2SingleSync.model">
     <option #option *ngFor="let item of data" [optionValue]="item.id">{{item.text}}</option>
 </select2>
@@ -66,11 +66,66 @@
 {{toJSON(select2MultipleObservable.ngModel)}}
 <br/>
 
-<select2 id="13" [options]="select2MultipleSync.options" [compareWith]="compareWith" [formControl]="regions">
+<h2>FormControl examples:</h2>
+
+<select2 id="13" [options]="select2SingleFormControlSync.options" [compareWith]="compareWith" [formControl]="regions13">
   <option #option *ngFor="let item of data" [optionValue]="item.id">{{item.text}}</option>
 </select2>
-{{toJSON(regions.value)}}
-<select2 id="14" [options]="select2MultipleSync.options" [compareWith]="ngCompareWith" [formControl]="regions2">
+{{toJSON(regions13.value)}}
+<select2 id="14" [options]="select2SingleFormControlSync.options" [compareWith]="ngCompareWith" [formControl]="regions14">
   <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
 </select2>
-{{toJSON(regions2.value)}}
+{{toJSON(regions14.value)}}
+<br/>
+
+<select2 id="15" [options]="select2SingleFormControlAsync.options" [compareWith]="compareWith"  [formControl]="regions15">
+  <option #option *ngFor="let item of data$ | async" [optionValue]="item.id">{{item.text}}</option>
+</select2>
+{{toJSON(regions15.value)}}
+<select2 id="16" [options]="select2SingleFormControlAsync.options" [compareWith]="ngCompareWith"  [formControl]="regions16">
+  <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(regions16.value)}}
+<br/>
+
+<select2 id="17" [options]="select2SingleFormControlObservable.options" [compareWith]="compareWith" [formControl]="regions17">
+  <option #option *ngFor="let item of [data[2]]" [optionValue]="item.id">{{item.text}}</option>
+</select2>
+{{toJSON(regions17.value)}}
+<select2 id="18" [options]="select2SingleFormControlObservable.options" [compareWith]="ngCompareWith" [formControl]="regions18">
+  <option #option *ngFor="let item of [data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(regions18.value)}}
+<br/>
+
+<select2 id="19" [options]="select2MultipleFormControlSync.options" [compareWith]="compareWith" [formControl]="regions19">
+  <option #option *ngFor="let item of data" [optionValue]="item.id">{{item.text}}</option>
+</select2>
+{{toJSON(regions19.value)}}
+<select2 id="20" [options]="select2MultipleFormControlSync.options" [compareWith]="ngCompareWith" [formControl]="regions20">
+  <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(regions20.value)}}
+<br/>
+
+<select2 id="21" [options]="select2MultipleFormControlAsync.options" [compareWith]="compareWith"  [formControl]="regions21">
+  <option #option *ngFor="let item of data$ | async" [optionValue]="item.id">{{item.text}}</option>
+</select2>
+{{toJSON(regions21.value)}}
+<select2 id="22" [options]="select2MultipleFormControlAsync.options" [compareWith]="ngCompareWith"  [formControl]="regions22">
+  <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(regions22.value)}}
+<br/>
+
+<select2 id="23" [options]="select2MultipleFormControlObservable.options" [compareWith]="compareWith" [formControl]="regions23">
+  <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item.id">{{item.text}}</option>
+</select2>
+{{toJSON(regions23.value)}}
+<select2 id="24" [options]="select2MultipleFormControlObservable.options" [compareWith]="ngCompareWith" [formControl]="regions24">
+  <option #option *ngFor="let item of [data[0], data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+</select2>
+{{toJSON(regions24.value)}}
+<br/>
+
+
