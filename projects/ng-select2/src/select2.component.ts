@@ -73,6 +73,18 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
         this.$element = jQuery(this.elementRef.nativeElement);
     }
 
+    open() {
+        if (this.$select) {
+           this.$select.select2('open');
+        }
+    }
+
+    close() {
+        if (this.$select) {
+            this.$select.select2('close');
+        }
+    }
+
     ngOnInit() {
         this.$select = jQuery(this.select.nativeElement);
         this.select2Options = Object.assign({}, this.options);
