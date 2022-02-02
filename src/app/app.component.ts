@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -38,6 +39,24 @@ export class AppComponent {
         ngModel: {...this.data[2]}
     };
 
+    select2SingleFormControlSync = {
+      options: {...this.defaultSelect2Options},
+      formControl: new FormControl(2),
+      ngFormControl: new FormControl({...this.data[1]})
+    };
+
+    select2SingleFormControlAsync = {
+      options: {...this.defaultSelect2Options},
+      formControl: new FormControl(1),
+      ngFormControl: new FormControl({...this.data[0]})
+    };
+
+    select2SingleFormControlObservable = {
+      options: {...this.defaultSelect2Options, ...{createObservable: this.createData$.bind(this)}},
+      formControl: new FormControl(3),
+      ngFormControl: new FormControl({...this.data[2]})
+    };
+
     select2MultipleSync = {
         options: {...this.defaultSelect2Options, ...{multiple: true}},
         model: [1, 2],
@@ -54,6 +73,24 @@ export class AppComponent {
         options: {...this.defaultSelect2Options, ...{multiple: true}, ...{createObservable: this.createData$.bind(this)}},
         model: [1, 3],
         ngModel: [{...this.data[0]}, {...this.data[2]}]
+    };
+
+    select2MultipleFormControlSync = {
+      options: {...this.defaultSelect2Options, ...{multiple: true}},
+      formControl: new FormControl([1, 2]),
+      ngFormControl: new FormControl([{...this.data[0]}, {...this.data[1]}])
+    };
+
+    select2MultipleFormControlAsync = {
+      options: {...this.defaultSelect2Options, ...{multiple: true}},
+      formControl: new FormControl([2, 3]),
+      ngFormControl: new FormControl([{...this.data[1]}, {...this.data[2]}])
+    };
+
+    select2MultipleFormControlObservable = {
+      options: {...this.defaultSelect2Options, ...{multiple: true}, ...{createObservable: this.createData$.bind(this)}},
+      formControl: new FormControl([1, 3]),
+      ngFormControl: new FormControl([{...this.data[0]}, {...this.data[2]}])
     };
 
     createData$(): Observable<any> {

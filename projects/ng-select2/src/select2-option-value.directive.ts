@@ -1,11 +1,11 @@
-import {Directive, ElementRef, Host, Input, Renderer2} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Host, Input, Renderer2} from '@angular/core';
 import {buildValueString} from './utils';
 import {Select2Component} from './select2.component';
 
 @Directive({
     selector: 'option[ngOptionValue], option[optionValue]'
 })
-export class Select2OptionValueDirective {
+export class Select2OptionValueDirective implements AfterViewInit {
 
     id: string;
     value: any;
@@ -18,20 +18,16 @@ export class Select2OptionValueDirective {
 
     @Input('ngOptionValue')
     set ngOptionValue(value: any) {
-        if (this.select) {
-            this.value = value;
-            this.setElementValue(buildValueString(this.id, value));
-            this.select.writeValue(this.select.value);
-        }
+        this.optionValueSetter(value);
     }
 
     @Input('optionValue')
     set optionValue(value: any) {
-        if (this.select) {
-            this.value = value;
-            this.setElementValue(buildValueString(this.id, value));
-            this.select.writeValue(this.select.value);
-        }
+        this.optionValueSetter(value);
+    }
+
+    ngAfterViewInit() {
+        this.select.writeValue(this.select.value);
     }
 
     /** @internal */
@@ -42,5 +38,12 @@ export class Select2OptionValueDirective {
     /** @internal */
     setSelected(selected) {
         this.renderer.setProperty(this.element.nativeElement, 'selected', selected);
+    }
+
+    private optionValueSetter(value: any): void {
+        if (this.select) {
+            this.value = value;
+            this.setElementValue(buildValueString(this.id, value));
+        }
     }
 }

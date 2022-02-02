@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {Select2Module} from '../../projects/ng-select2/src/module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -12,7 +12,7 @@ import {FormsModule} from '@angular/forms';
     imports: [
         BrowserModule,
         FormsModule,
-
+        ReactiveFormsModule,
         Select2Module
     ],
     providers: [],

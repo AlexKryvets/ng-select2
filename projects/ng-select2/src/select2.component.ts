@@ -73,6 +73,18 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
         this.$element = jQuery(this.elementRef.nativeElement);
     }
 
+    open() {
+        if (this.$select) {
+           this.$select.select2('open');
+        }
+    }
+
+    close() {
+        if (this.$select) {
+            this.$select.select2('close');
+        }
+    }
+
     ngOnInit() {
         this.$select = jQuery(this.select.nativeElement);
         this.select2Options = Object.assign({}, this.options);
@@ -97,47 +109,19 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
         this.$select.select2(this.select2Options);
     }
 
-  ngOnChanges(changes: SimpleChanges) {
-      if (this.$select && changes.placeholder) {
-          this.select2Options.placeholder = changes.placeholder.currentValue;
-          this.$select.select2(this.select2Options);
-      }
-  }
+    ngOnChanges(changes: SimpleChanges) {
+        if (this.$select && changes.placeholder) {
+            this.select2Options.placeholder = changes.placeholder.currentValue;
+            this.$select.select2(this.select2Options);
+        }
+    }
 
-  ngAfterContentInit() {
+    ngAfterContentInit() {
         this.optionList.changes.subscribe(() => {
             this.$select.select2('close');
             this.$select.select2(this.select2Options);
             this.writeValue(this.value);
         });
-    }
-
-    private wrapTemplateResultOption() {
-        const templateResult = this.select2Options.templateResult;
-        if (templateResult) {
-            this.select2Options.templateResult = (result, container) => {
-                let data;
-                if (result.id) {
-                    data = this.getOptionValue(result.id);
-                }
-                return templateResult(data || result, container);
-            };
-        }
-    }
-
-
-    private setElementValue(newValue: string | string[]) {
-        if (this.$select) {
-            if (Array.isArray(newValue)) {
-                this.$select.find('option').each(() => {
-                    // this.renderer.setElementProperty(option, 'selected', (newValue.indexOf(option.value) > -1));
-                });
-            } else {
-                this.$select.val(newValue);
-                // this.renderer.setElementProperty(this.selector.nativeElement, 'value', newValue);
-            }
-            this.$select.trigger('change.select2');
-        }
     }
 
     writeValue(value: any) {
@@ -215,5 +199,32 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     getOptionValue(valueString: string): any {
         const id: string = valueString.split(':')[0];
         return this.optionMap.has(id) ? this.optionMap.get(id).value : valueString;
+    }
+
+    private wrapTemplateResultOption() {
+        const templateResult = this.select2Options.templateResult;
+        if (templateResult) {
+            this.select2Options.templateResult = (result, container) => {
+                let data;
+                if (result.id) {
+                    data = this.getOptionValue(result.id);
+                }
+                return templateResult(data || result, container);
+            };
+        }
+    }
+
+    private setElementValue(newValue: string | string[]) {
+        if (this.$select) {
+            if (Array.isArray(newValue)) {
+                this.$select.find('option').each(() => {
+                  // this.renderer.setElementProperty(option, 'selected', (newValue.indexOf(option.value) > -1));
+                });
+            } else {
+                this.$select.val(newValue);
+                // this.renderer.setElementProperty(this.selector.nativeElement, 'value', newValue);
+            }
+            this.$select.trigger('change.select2');
+        }
     }
 }
