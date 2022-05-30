@@ -6,8 +6,7 @@ import {
   ElementRef,
   forwardRef, Input, OnChanges,
   OnInit, QueryList, Renderer2, SimpleChanges,
-  ViewChild,
-  ɵlooseIdentical as looseIdentical
+  ViewChild
 } from '@angular/core';
 import {Select2Options} from './interfaces';
 import {ObservableAdapter} from './observable-adapter';
@@ -63,8 +62,6 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     private $element: any;
 
     private $select: any;
-
-    private _compareWith: (o1: any, o2: any) => boolean = looseIdentical;
 
     onChange = (_: any) => {
     }
@@ -226,5 +223,9 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
             }
             this.$select.trigger('change.select2');
         }
+    }
+
+    private _compareWith (a: any, b: any): boolean {
+      return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
     }
 }
