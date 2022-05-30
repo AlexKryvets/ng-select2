@@ -33,7 +33,7 @@ export const SELECT_2_COMPONENT_ACCESSOR: any = {
 })
 export class Select2Component implements ControlValueAccessor, OnInit, AfterContentInit, OnChanges {
 
-    @ViewChild('select') select: ElementRef;
+    @ViewChild('select', { static: true }) select: ElementRef;
 
     @ContentChildren('option') optionList: QueryList<any>;
 
