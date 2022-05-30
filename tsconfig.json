@@ -20,6 +20,8 @@
     ],
     "paths": {
       "lib": [
+        "dist/lib",
+        "dist/lib/lib",
         "dist/lib"
       ],
       "lib/*": [
