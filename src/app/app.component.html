@@ -11,7 +11,7 @@
 </select2>
 {{toJSON(select2SingleSync.model)}}
 <select2 id="2" [options]="select2SingleSync.options" [compareWith]="ngCompareWith" [(ngModel)]="select2SingleSync.ngModel">
-    <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
+    <option #option *ngFor="let item of data" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleSync.ngModel)}}
 <br/>
@@ -21,7 +21,7 @@
 </select2>
 {{toJSON(select2SingleAsync.model)}}
 <select2 id="4" [options]="select2SingleAsync.options" [compareWith]="ngCompareWith"  [(ngModel)]="select2SingleAsync.ngModel">
-    <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+    <option #option *ngFor="let item of data$ | async" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleAsync.ngModel)}}
 <br/>
@@ -31,7 +31,7 @@
 </select2>
 {{toJSON(select2SingleObservable.model)}}
 <select2 id="6" [options]="select2SingleObservable.options" [compareWith]="ngCompareWith" [(ngModel)]="select2SingleObservable.ngModel">
-    <option #option *ngFor="let item of [data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+    <option #option *ngFor="let item of [data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleObservable.ngModel)}}
 <br/>
@@ -41,7 +41,7 @@
 </select2>
 {{toJSON(select2MultipleSync.model)}}
 <select2 id="8" [options]="select2MultipleSync.options" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleSync.ngModel">
-    <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
+    <option #option *ngFor="let item of data" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleSync.ngModel)}}
 <br/>
@@ -51,7 +51,7 @@
 </select2>
 {{toJSON(select2MultipleAsync.model)}}
 <select2 id="10" [options]="select2MultipleAsync.options" [compareWith]="ngCompareWith"  [(ngModel)]="select2MultipleAsync.ngModel">
-    <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+    <option #option *ngFor="let item of data$ | async" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleAsync.ngModel)}}
 <br/>
@@ -61,7 +61,7 @@
 </select2>
 {{toJSON(select2MultipleObservable.model)}}
 <select2 id="12" [options]="select2MultipleObservable.options" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleObservable.ngModel">
-    <option #option *ngFor="let item of [data[0], data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+    <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleObservable.ngModel)}}
 <br/>
@@ -73,7 +73,7 @@
 </select2>
 {{toJSON(select2SingleFormControlSync.formControl.value)}}
 <select2 id="14" [options]="select2SingleFormControlSync.options" [compareWith]="ngCompareWith" [formControl]="select2SingleFormControlSync.ngFormControl">
-  <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
+  <option #option *ngFor="let item of data" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleFormControlSync.ngFormControl.value)}}
 <br/>
@@ -83,7 +83,7 @@
 </select2>
 {{toJSON(select2SingleFormControlAsync.formControl.value)}}
 <select2 id="16" [options]="select2SingleFormControlAsync.options" [compareWith]="ngCompareWith"  [formControl]="select2SingleFormControlAsync.ngFormControl">
-  <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+  <option #option *ngFor="let item of data$ | async" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleFormControlAsync.ngFormControl.value)}}
 <br/>
@@ -93,7 +93,7 @@
 </select2>
 {{toJSON(select2SingleFormControlObservable.formControl.value)}}
 <select2 id="18" [options]="select2SingleFormControlObservable.options" [compareWith]="ngCompareWith" [formControl]="select2SingleFormControlObservable.ngFormControl">
-  <option #option *ngFor="let item of [data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+  <option #option *ngFor="let item of [data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleFormControlObservable.ngFormControl.value)}}
 <br/>
@@ -103,7 +103,7 @@
 </select2>
 {{toJSON(select2MultipleFormControlSync.formControl.value)}}
 <select2 id="20" [options]="select2MultipleFormControlSync.options" [compareWith]="ngCompareWith" [formControl]="select2MultipleFormControlSync.ngFormControl">
-  <option #option *ngFor="let item of data" [ngOptionValue]="item">{{item.text}}</option>
+  <option #option *ngFor="let item of data" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleFormControlSync.ngFormControl.value)}}
 <br/>
@@ -113,7 +113,7 @@
 </select2>
 {{toJSON(select2MultipleFormControlAsync.formControl.value)}}
 <select2 id="22" [options]="select2MultipleFormControlAsync.options" [compareWith]="ngCompareWith"  [formControl]="select2MultipleFormControlAsync.ngFormControl">
-  <option #option *ngFor="let item of data$ | async" [ngOptionValue]="item">{{item.text}}</option>
+  <option #option *ngFor="let item of data$ | async" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleFormControlAsync.ngFormControl.value)}}
 <br/>
@@ -123,7 +123,7 @@
 </select2>
 {{toJSON(select2MultipleFormControlObservable.formControl.value)}}
 <select2 id="24" [options]="select2MultipleFormControlObservable.options" [compareWith]="ngCompareWith" [formControl]="select2MultipleFormControlObservable.ngFormControl">
-  <option #option *ngFor="let item of [data[0], data[2]]" [ngOptionValue]="item">{{item.text}}</option>
+  <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleFormControlObservable.ngFormControl.value)}}
 <br/>

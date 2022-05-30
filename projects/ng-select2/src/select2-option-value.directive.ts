@@ -3,7 +3,7 @@ import {buildValueString} from './utils';
 import {Select2Component} from './select2.component';
 
 @Directive({
-    selector: 'option[ngOptionValue], option[optionValue]'
+    selector: 'option[optionValue]'
 })
 export class Select2OptionValueDirective implements AfterViewInit {
 
@@ -14,11 +14,6 @@ export class Select2OptionValueDirective implements AfterViewInit {
         if (this.select) {
             this.id = this.select.registerOption(this);
         }
-    }
-
-    @Input('ngOptionValue')
-    set ngOptionValue(value: any) {
-        this.optionValueSetter(value);
     }
 
     @Input('optionValue')
