@@ -6,6 +6,7 @@
     "@angular/core": "^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0"
   },
   "dependencies": {
-    "@teamsoft/select2-adapters": "*"
+    "@teamsoft/select2-adapters": "*",
+    "tslib": "^2.0.0"
   }
 }
