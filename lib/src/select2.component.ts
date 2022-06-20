@@ -114,6 +114,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     }
 
     ngAfterContentInit() {
+        this.writeValue(this.value);
         this.optionList.changes.subscribe(() => {
             this.$select.select2('close');
             this.$select.select2(this.select2Options);

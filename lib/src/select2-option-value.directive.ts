@@ -1,11 +1,11 @@
-import {AfterViewInit, Directive, ElementRef, Host, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Host, Input, Renderer2} from '@angular/core';
 import {buildValueString} from './utils';
 import {Select2Component} from './select2.component';
 
 @Directive({
     selector: 'option[optionValue]'
 })
-export class Select2OptionValueDirective implements AfterViewInit {
+export class Select2OptionValueDirective {
 
     id: string;
     value: any;
@@ -19,10 +19,6 @@ export class Select2OptionValueDirective implements AfterViewInit {
     @Input('optionValue')
     set optionValue(value: any) {
         this.optionValueSetter(value);
-    }
-
-    ngAfterViewInit() {
-        this.select.writeValue(this.select.value);
     }
 
     /** @internal */
