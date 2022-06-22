@@ -98,8 +98,7 @@ export class AppComponent {
             },
         },
         ngOptions: {
-            ...this.defaultSelect2Options,
-            ...{multiple: true, createObservable: this.createData$.bind(this)},
+            ...this.defaultSelect2Options, ...{multiple: true, createObservable: this.createData$.bind(this)},
         },
         model: [1, 3],
         ngModel: [{...this.data[0]}, {...this.data[2]}]
