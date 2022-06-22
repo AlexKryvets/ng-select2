@@ -30,7 +30,7 @@
     <option #option *ngFor="let item of [data[2]]" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleObservable.model)}}
-<select2 id="6" [options]="select2SingleObservable.options" [compareWith]="ngCompareWith" [(ngModel)]="select2SingleObservable.ngModel">
+<select2 id="6" [options]="select2SingleObservable.ngOptions" [compareWith]="ngCompareWith" [(ngModel)]="select2SingleObservable.ngModel">
     <option #option *ngFor="let item of [data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleObservable.ngModel)}}
@@ -60,7 +60,7 @@
     <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleObservable.model)}}
-<select2 id="12" [options]="select2MultipleObservable.options" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleObservable.ngModel">
+<select2 id="12" [options]="select2MultipleObservable.ngOptions" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleObservable.ngModel">
     <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleObservable.ngModel)}}
@@ -92,7 +92,7 @@
     <option #option *ngFor="let item of [data[2]]" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleFormControlObservable.formControl.value)}}
-<select2 id="18" [options]="select2SingleFormControlObservable.options" [compareWith]="ngCompareWith" [formControl]="select2SingleFormControlObservable.ngFormControl">
+<select2 id="18" [options]="select2SingleFormControlObservable.ngOptions" [compareWith]="ngCompareWith" [formControl]="select2SingleFormControlObservable.ngFormControl">
     <option #option *ngFor="let item of [data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2SingleFormControlObservable.ngFormControl.value)}}
@@ -122,7 +122,7 @@
     <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item.id">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleFormControlObservable.formControl.value)}}
-<select2 id="24" [options]="select2MultipleFormControlObservable.options" [compareWith]="ngCompareWith" [formControl]="select2MultipleFormControlObservable.ngFormControl">
+<select2 id="24" [options]="select2MultipleFormControlObservable.ngOptions" [compareWith]="ngCompareWith" [formControl]="select2MultipleFormControlObservable.ngFormControl">
     <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleFormControlObservable.ngFormControl.value)}}

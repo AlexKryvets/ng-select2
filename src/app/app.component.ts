@@ -34,7 +34,16 @@ export class AppComponent {
     };
 
     select2SingleObservable = {
-        options: {...this.defaultSelect2Options, ...{createObservable: this.createData$.bind(this)}},
+        options: {
+            ...this.defaultSelect2Options,
+            ...{createObservable: this.createData$.bind(this)},
+            ...{
+                dataAdapterOptions: {
+                    getOptionValue: (item: any) => item.id,
+                },
+            },
+        },
+        ngOptions: {...this.defaultSelect2Options, ...{createObservable: this.createData$.bind(this)}},
         model: 3,
         ngModel: {...this.data[2]}
     };
@@ -52,7 +61,16 @@ export class AppComponent {
     };
 
     select2SingleFormControlObservable = {
-        options: {...this.defaultSelect2Options, ...{createObservable: this.createData$.bind(this)}},
+        options: {
+            ...this.defaultSelect2Options,
+            ...{createObservable: this.createData$.bind(this)},
+            ...{
+                dataAdapterOptions: {
+                    getOptionValue: (item: any) => item.id,
+                },
+            },
+        },
+        ngOptions: {...this.defaultSelect2Options, ...{createObservable: this.createData$.bind(this)}},
         formControl: new FormControl(3),
         ngFormControl: new FormControl({...this.data[2]})
     };
@@ -100,7 +118,16 @@ export class AppComponent {
     };
 
     select2MultipleFormControlObservable = {
-        options: {...this.defaultSelect2Options, ...{multiple: true}, ...{createObservable: this.createData$.bind(this)}},
+        options: {
+            ...this.defaultSelect2Options,
+            ...{multiple: true, createObservable: this.createData$.bind(this)},
+            ...{
+                dataAdapterOptions: {
+                    getOptionValue: (item: any) => item.id,
+                },
+            },
+        },
+        ngOptions: {...this.defaultSelect2Options, ...{multiple: true, createObservable: this.createData$.bind(this)}},
         formControl: new FormControl([1, 3]),
         ngFormControl: new FormControl([{...this.data[0]}, {...this.data[2]}])
     };
