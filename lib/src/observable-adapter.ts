@@ -13,13 +13,9 @@ export interface DataAdapterOptions {
 
 export class ObservableAdapter extends ArrayAdapter {
     private createObservable: CreateObservableFunction;
-    private dataAdapterOptions: DataAdapterOptions = {
-        getOptionValue: (item: any) => {
-            return item;
-        },
-        getOptionText: (item: any) => {
-            return item.text;
-        }
+    private readonly dataAdapterOptions: DataAdapterOptions = {
+        getOptionValue: (item: any) => item,
+        getOptionText: (item: any) =>  item.text
     };
     private observableSubscription: Subscription;
     private select2Component: Select2Component;
