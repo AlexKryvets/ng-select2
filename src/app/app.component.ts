@@ -72,13 +72,16 @@ export class AppComponent {
     select2MultipleObservable = {
         options: {
             ...this.defaultSelect2Options,
-            ...{multiple: true},
+            ...{multiple: true, createObservable: this.createData$.bind(this)},
             ...{
-                createObservable: this.createData$.bind(this),
                 dataAdapterOptions: {
-                    getOptionValue: (item: any) => item
+                    getOptionValue: (item: any) => item.id,
                 },
             },
+        },
+        ngOptions: {
+            ...this.defaultSelect2Options,
+            ...{multiple: true, createObservable: this.createData$.bind(this)},
         },
         model: [1, 3],
         ngModel: [{...this.data[0]}, {...this.data[2]}]

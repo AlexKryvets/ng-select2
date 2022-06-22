@@ -1,5 +1,8 @@
-
-<select2 id="12" [options]="select2MultipleObservable.options" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleObservable.ngModel">
+<select2 id="11" [options]="select2MultipleObservable.options" [compareWith]="compareWith" [(ngModel)]="select2MultipleObservable.model">
+    <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item.id">{{item.text}}</option>
+</select2>
+{{toJSON(select2MultipleObservable.model)}}
+<select2 id="12" [options]="select2MultipleObservable.ngOptions" [compareWith]="ngCompareWith" [(ngModel)]="select2MultipleObservable.ngModel">
     <option #option *ngFor="let item of [data[0], data[2]]" [optionValue]="item">{{item.text}}</option>
 </select2>
 {{toJSON(select2MultipleObservable.ngModel)}}

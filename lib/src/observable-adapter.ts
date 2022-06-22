@@ -5,16 +5,21 @@ import {buildValueString} from './utils';
 import {Select2OptionValueDirective} from './select2-option-value.directive';
 
 export type CreateObservableFunction = (params: { term: string }) => Observable<any>;
+
 export interface DataAdapterOptions {
-  getOptionValue: (item: any) => any;
+    getOptionValue: (item: any) => any;
+    getOptionText: (item: any) => string;
 }
 
 export class ObservableAdapter extends ArrayAdapter {
     private createObservable: CreateObservableFunction;
     private dataAdapterOptions: DataAdapterOptions = {
-      getOptionValue: (item: any) => {
-        return item;
-      }
+        getOptionValue: (item: any) => {
+            return item;
+        },
+        getOptionText: (item: any) => {
+            return item.text;
+        }
     };
     private observableSubscription: Subscription;
     private select2Component: Select2Component;
@@ -23,7 +28,7 @@ export class ObservableAdapter extends ArrayAdapter {
         super($element, options);
         this.select2Component = options.get('select2Component');
         this.createObservable = options.get('createObservable') as CreateObservableFunction;
-        this.dataAdapterOptions = options.get('dataAdapterOptions') as DataAdapterOptions;
+        this.dataAdapterOptions = {...this.dataAdapterOptions, ...options.get('dataAdapterOptions')};
     }
 
     query(params, callback) {
@@ -33,10 +38,17 @@ export class ObservableAdapter extends ArrayAdapter {
 
         this.observableSubscription = this.createObservable(params).subscribe((data) => {
             callback({
-                results: data.map((item) => {
-                    const optionValue = this.dataAdapterOptions.getOptionValue(item);
-                    const id = this.select2Component.getOptionId(optionValue);
+                results: data.map((origData) => {
+                    const item: any = {origData};
+                    const optionValue = this.dataAdapterOptions.getOptionValue(origData);
+                    let id = this.select2Component.getOptionId(optionValue);
+                    if (id === null) {
+                        id = this.select2Component.registerOption({
+                            value: this.dataAdapterOptions.getOptionValue(origData)
+                        } as Select2OptionValueDirective);
+                    }
                     item.id = buildValueString(id, optionValue);
+                    item.text = this.dataAdapterOptions.getOptionText(origData);
                     return item;
                 })
             });
@@ -44,18 +56,15 @@ export class ObservableAdapter extends ArrayAdapter {
     }
 
     select(data: any) {
-        const optionValue = this.dataAdapterOptions.getOptionValue(data);
+        const {origData} = data;
+        const optionValue = this.dataAdapterOptions.getOptionValue(origData);
+        const id = this.select2Component.getOptionId(optionValue);
         let $option = this.$element.find('option').filter((i, elm: any) => {
-            const id = this.select2Component.getOptionId(optionValue);
             return elm.value === buildValueString(id, optionValue);
         });
 
         if ($option.length === 0) {
-            const id = this.select2Component.registerOption({
-                value: this.dataAdapterOptions.getOptionValue(data)
-            } as Select2OptionValueDirective);
             $option = this.option(data);
-            $option[0].value = buildValueString(id, optionValue);
             this.addOptions($option);
         }
 
