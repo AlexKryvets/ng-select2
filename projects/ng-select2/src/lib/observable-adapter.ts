@@ -1,5 +1,5 @@
 import {Observable, Subscription} from 'rxjs';
-import {ArrayAdapter} from '@teamsoft/select2-adapters/base-adapters';
+import {ArrayAdapter, QueryCallback} from '@teamsoft/select2-adapters/base-adapters';
 import {Select2Component} from './select2.component';
 import {buildValueString} from './utils';
 import {Select2OptionValueDirective} from './select2-option-value.directive';
@@ -7,34 +7,34 @@ import {Select2OptionValueDirective} from './select2-option-value.directive';
 export type CreateObservableFunction = (params: { term: string }) => Observable<any>;
 
 export interface DataAdapterOptions {
-    getOptionValue: (item: any) => any;
-    getOptionText: (item: any) => string;
+    getOptionValue?: (item: any) => any;
+    getOptionText?: (item: any) => string;
 }
 
 export class ObservableAdapter extends ArrayAdapter {
     private createObservable: CreateObservableFunction;
-    private readonly dataAdapterOptions: DataAdapterOptions = {
+    private readonly dataAdapterOptions = {
         getOptionValue: (item: any) => item,
         getOptionText: (item: any) =>  item.text
     };
-    private observableSubscription: Subscription;
+    private observableSubscription: Subscription | null = null;
     private select2Component: Select2Component;
 
-    constructor($element, options) {
+    constructor($element: any, options: any) {
         super($element, options);
         this.select2Component = options.get('select2Component');
         this.createObservable = options.get('createObservable') as CreateObservableFunction;
         this.dataAdapterOptions = {...this.dataAdapterOptions, ...options.get('dataAdapterOptions')};
     }
 
-    query(params, callback) {
+    override query(params: any, callback: QueryCallback) {
         if (this.observableSubscription) {
             this.observableSubscription.unsubscribe();
         }
 
         this.observableSubscription = this.createObservable(params).subscribe((data) => {
             callback({
-                results: data.map((origData) => {
+                results: data.map((origData: any) => {
                     const item: any = {origData};
                     const optionValue = this.dataAdapterOptions.getOptionValue(origData);
                     let id = this.select2Component.getOptionId(optionValue);
@@ -55,7 +55,7 @@ export class ObservableAdapter extends ArrayAdapter {
         const {origData} = data;
         const optionValue = this.dataAdapterOptions.getOptionValue(origData);
         const id = this.select2Component.getOptionId(optionValue);
-        let $option = this.$element.find('option').filter((i, elm: any) => {
+        let $option = this.$element.find('option').filter((i: number, elm: any) => {
             return elm.value === buildValueString(id, optionValue);
         });
 

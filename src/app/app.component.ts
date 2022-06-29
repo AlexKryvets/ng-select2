@@ -4,9 +4,9 @@ import {delay} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
     title = 'ng-select2-app';
@@ -133,15 +133,15 @@ export class AppComponent {
         return of(this.data).pipe(delay(1000));
     }
 
-    toJSON(data) {
+    toJSON(data: any) {
         return JSON.stringify(data);
     }
 
-    compareWith(value1, value2) {
+    compareWith(value1: string, value2: string) {
         return value1 === value2;
     }
 
-    ngCompareWith(value1, value2) {
+    ngCompareWith(value1: any, value2: any) {
         return value1 && value2 && value1.id === value2.id;
     }
 }

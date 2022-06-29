@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {Select2Module} from '../../lib/src/module';
+import {Select2Module} from '@teamsoft/ng-select2';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({

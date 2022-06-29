@@ -7,7 +7,7 @@ import {Select2Component} from './select2.component';
 })
 export class Select2OptionValueDirective {
 
-    id: string;
+    id: string | null= null;
     value: any;
 
     constructor(private element: ElementRef, private renderer: Renderer2, @Host() private select: Select2Component) {
@@ -27,7 +27,7 @@ export class Select2OptionValueDirective {
     }
 
     /** @internal */
-    setSelected(selected) {
+    setSelected(selected: any) {
         this.renderer.setProperty(this.element.nativeElement, 'selected', selected);
     }
 

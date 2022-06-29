@@ -12,6 +12,10 @@ module.exports = function (config) {
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
+    files: [
+        require.resolve('jquery'),
+        require.resolve('select2'),
+    ],
     client: {
       jasmine: {
         // you can add configuration options for Jasmine here
@@ -25,7 +29,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, '../coverage/lib'),
+      dir: require('path').join(__dirname, '../../coverage/ng-select2'),
       subdir: '.',
       reporters: [
         { type: 'html' },
