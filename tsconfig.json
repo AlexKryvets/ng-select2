@@ -13,7 +13,7 @@
     "sourceMap": true,
     "paths": {
       "@teamsoft/ng-select2": [
-        "projects/ng-select2/src/public-api.ts"
+        "dist/ng-select2"
       ]
     },
     "declaration": false,
