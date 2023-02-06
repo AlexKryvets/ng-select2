@@ -42,6 +42,9 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     @Input()
     options: Select2Options = {};
 
+    @Input()
+    disabled = false;
+
     private select2Options: Select2Options = {};
 
     @Input()
@@ -103,6 +106,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
         if (this.placeholder) {
             this.select2Options.placeholder = this.placeholder;
         }
+        this.$select.prop('disabled', this.disabled);
         this.$select.select2(this.select2Options);
     }
 
@@ -110,6 +114,10 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
         if (this.$select && changes['placeholder']) {
             this.select2Options.placeholder = changes['placeholder'].currentValue;
             this.$select.select2(this.select2Options);
+        }
+
+        if (this.$select && changes['disabled'] !== undefined) {
+            this.$select.prop('disabled', changes['disabled'].currentValue);
         }
     }
 

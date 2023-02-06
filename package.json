@@ -7,6 +7,7 @@
     "build": "ng build",
     "build:ng-select2": "ng build ng-select2",
     "watch": "ng build --watch --configuration development",
+    "watch:ng-select2": "ng build --watch ng-select2",
     "test": "ng test",
     "test:ng-select2": "ng test ng-select2",
     "publish": "npm publish ./dist/ng-select2"
