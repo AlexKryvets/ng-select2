@@ -12,4 +12,5 @@ export interface Select2Options {
     select2Component?: Select2Component;
     placeholder?: string;
     width?: number|string;
+    allowClear?: boolean;
 }
