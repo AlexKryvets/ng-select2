@@ -131,7 +131,6 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
                 this.writeValue(this.value);
             });
         }
-        this.idCounter = 0;
     }
 
     writeValue(value: any) {
