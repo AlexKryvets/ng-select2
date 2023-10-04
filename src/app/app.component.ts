@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {from, map, mergeMap, Observable, of, toArray} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,13 @@ import {FormControl} from '@angular/forms';
 })
 export class AppComponent {
     title = 'ng-select2-app';
+
+    languages = [
+        {id: 'en', text: 'English'},
+        {id: 'uk', text: 'Ukrainian'},
+    ];
+
+    language = 'en';
 
     data = [
         {id: 1, text: 'First', data: {id: 1}},
@@ -129,8 +137,30 @@ export class AppComponent {
         ngFormControl: new FormControl([{...this.data[0]}, {...this.data[2]}])
     };
 
+    constructor(
+        public translator: TranslateService,
+    ) {
+        this.translator.use(this.language);
+    }
+
+    onLanguageChange(language: string) {
+        this.language = language;
+        this.translator.use(this.language);
+    }
+
     createData$(): Observable<any> {
-        return of(this.data).pipe(delay(1000));
+        return from(this.data).pipe(
+            delay(1000),
+            mergeMap((item) => {
+                return this.translator.get(item.text).pipe(
+                    map((translation) => {
+                        item.text = translation;
+                        return item;
+                    }),
+                );
+            }),
+            toArray(),
+        );
     }
 
     toJSON(data: any) {

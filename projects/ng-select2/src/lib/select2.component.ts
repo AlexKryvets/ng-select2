@@ -12,6 +12,7 @@ import {Select2Options} from './interfaces';
 import {ObservableAdapter} from './observable-adapter';
 import {buildValueString} from './utils';
 import {Select2OptionValueDirective} from './select2-option-value.directive';
+import {debounceTime} from "rxjs";
 
 declare var jQuery: any;
 
@@ -23,7 +24,7 @@ export const SELECT_2_COMPONENT_ACCESSOR: any = {
 
 @Component({
     selector: 'select2',
-    template: `<select #select>
+    template: `<select [attr.id]="id ? id : undefined" #select>
         <ng-content></ng-content>
     </select>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,6 +36,9 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     @ViewChild('select', { static: true }) select: ElementRef | null = null;
 
     @ContentChildren('option') optionList: QueryList<any> | null = null;
+
+    @Input()
+    id = '';
 
     @Input()
     placeholder = '';
@@ -86,6 +90,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     }
 
     ngOnInit() {
+        this.$element.attr('id', 'select2-' + this.$element.attr('id'));
         this.$select = jQuery(this.select?.nativeElement);
         this.select2Options = Object.assign({}, this.options);
 
@@ -124,7 +129,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     ngAfterContentInit() {
         this.writeValue(this.value);
         if (this.optionList) {
-            this.optionList.changes.subscribe(() => {
+            this.optionList.changes.pipe(debounceTime(100)).subscribe(() => {
                 this.$select.select2('close');
                 this.$select.select2(this.select2Options);
                 this.writeValue(this.value);
@@ -135,27 +140,16 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
     writeValue(value: any) {
         this.value = value;
         if (Array.isArray(value)) {
-            let optionSelectedStateSetter: (opt: Select2OptionValueDirective, o: any) => void;
-            if (Array.isArray(value)) {
-                const ids = value.map((v) => {
-                    return this.getOptionId(v);
-                });
-                optionSelectedStateSetter = function (opt, o) {
-                    opt.setSelected(ids.indexOf(o.toString()) > -1);
-                };
-            } else {
-                optionSelectedStateSetter = function (opt, o) {
-                    opt.setSelected(false);
-                };
-            }
-            this.optionMap.forEach(optionSelectedStateSetter);
+            this.optionMap.forEach((opt, o) => {
+                opt.setSelected(value.map((v) => this.getOptionId(v)).indexOf(o.toString()) > -1);
+            });
         } else {
             const id: string | null = this.getOptionId(value);
             if (id == null) {
                 this.renderer.setProperty(this.select?.nativeElement, 'selectedIndex', -1);
+            } else {
+                this.renderer.setProperty(this.select?.nativeElement, 'value', buildValueString(id, value));
             }
-            const valueString = buildValueString(id, value);
-            this.setElementValue(valueString);
         }
         if (this.$select) {
             this.$select.trigger('change.select2');
@@ -171,11 +165,12 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
                     selected.push(value);
                 }
                 this.value = selected;
-                fn(this.value);
             } else if (typeof _ === 'string') {
                 this.value = this.getOptionValue(_);
-                fn(this.value);
+            } else {
+                this.value = null;
             }
+            fn(this.value);
         };
     }
 
