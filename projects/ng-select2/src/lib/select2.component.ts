@@ -125,6 +125,7 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
         this.writeValue(this.value);
         if (this.optionList) {
             this.optionList.changes.subscribe(() => {
+                this.idCounter = 0;
                 this.$select.select2('close');
                 this.$select.select2(this.select2Options);
                 this.writeValue(this.value);
@@ -171,11 +172,12 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
                     selected.push(value);
                 }
                 this.value = selected;
-                fn(this.value);
             } else if (typeof _ === 'string') {
                 this.value = this.getOptionValue(_);
-                fn(this.value);
+            } else {
+                this.value = null;
             }
+            fn(this.value);
         };
     }
 
