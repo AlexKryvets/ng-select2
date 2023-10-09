@@ -188,6 +188,12 @@ export class Select2Component implements ControlValueAccessor, OnInit, AfterCont
         return id;
     }
 
+    unregisterOption(value: Select2OptionValueDirective): void {
+        if (value.id) {
+            this.optionMap.delete(value.id);
+        }
+    }
+
     /** @internal */
     getOptionId(value: any): string | null {
         for (const id of Array.from(this.optionMap.keys())) {

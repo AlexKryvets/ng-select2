@@ -1,11 +1,11 @@
-import {Directive, ElementRef, Host, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Host, Input, OnDestroy, Renderer2} from '@angular/core';
 import {buildValueString} from './utils';
 import {Select2Component} from './select2.component';
 
 @Directive({
     selector: 'option[optionValue]'
 })
-export class Select2OptionValueDirective {
+export class Select2OptionValueDirective implements OnDestroy {
 
     id: string | null= null;
     value: any;
@@ -29,6 +29,12 @@ export class Select2OptionValueDirective {
     /** @internal */
     setSelected(selected: any) {
         this.renderer.setProperty(this.element.nativeElement, 'selected', selected);
+    }
+
+    ngOnDestroy(): void {
+        if (this.select) {
+            this.select.unregisterOption(this);
+        }
     }
 
     private optionValueSetter(value: any): void {
